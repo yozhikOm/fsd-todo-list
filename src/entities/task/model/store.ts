@@ -9,7 +9,22 @@ type TaskStore = {
 }
 
 export const useTaskStore = create<TaskStore>((set) => ({
-    tasks: [],
+    tasks: [
+        {
+            id: "1",
+            title: "Помыть посуду",
+            completed: false,
+            priority: 2,
+            date: "2026-03-20", // просрочено
+        },
+        {
+            id: "2",
+            title: "Получасовая прогулка",
+            completed: false,
+            priority: 3,
+            date: "2026-03-25",
+        },
+    ],
 
     addTask: (title) =>
         set((state) => ({

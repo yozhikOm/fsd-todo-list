@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { TasksPage } from "../pages/tasks-page/TasksPage";
+import { TasksPage } from "../pages/tasks-page/ui/TasksPage";
 //import './styles/App.css'
 
 function App() {

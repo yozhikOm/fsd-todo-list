@@ -1,26 +1,13 @@
 import { useTaskStore } from "@/entities/task/model/store";
+import { TaskItem } from "./TaskItem";
 
 export const TaskList = () => {
-  const { tasks, toggleTask, deleteTask } = useTaskStore();
+  const tasks = useTaskStore((s) => s.tasks);
 
   return (
     <div>
       {tasks.map((task) => (
-        <div key={task.id}>
-          <input
-            type="checkbox"
-            checked={task.completed}
-            onChange={() => toggleTask(task.id)}
-          />
-          <span
-            style={{
-              textDecoration: task.completed ? "line-through" : "none",
-            }}
-          >
-            {task.title}
-          </span>
-          <button onClick={() => deleteTask(task.id)}>x</button>
-        </div>
+        <TaskItem key={task.id} task={task} />
       ))}
     </div>
   );
