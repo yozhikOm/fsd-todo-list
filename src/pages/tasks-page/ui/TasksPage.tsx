@@ -1,4 +1,5 @@
 import { AddTaskForm } from "@/features/add-task/ui/AddTaskForm";
+import { AddButton } from "@/features/add-task/ui/AddButton";
 import { TaskList } from "@/widgets/task-list/ui/TaskList";
 
 export const TasksPage = () => {
@@ -7,6 +8,7 @@ export const TasksPage = () => {
       <h1>Входящие</h1>
       {/* <AddTaskForm /> */}
       <TaskList />
+      <AddButton/>
     </div>
   );
 };

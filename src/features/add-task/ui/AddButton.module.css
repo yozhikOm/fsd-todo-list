@@ -1,0 +1,35 @@
+.addButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: grey;
+  padding-left: 0;
+  margin-top: 10px;
+}
+
+.addButton:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.addButton:hover .addIcon {
+  color: #fff;
+  background-color: var(--accent);
+}
+
+.addIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: var(--accent);
+  border-radius: 50%;
+  font-size: 22px;
+  line-height: 1;
+}
+
