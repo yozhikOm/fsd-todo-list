@@ -3,7 +3,7 @@ import type { Task } from './types';
 
 type TaskStore = {
     tasks: Task[];
-    addTask: (title: string) => void;
+    addTask: (task: Task) => void;
     toggleTask: (id: string) => void;
     deleteTask: (id: string) => void;
 }
@@ -13,6 +13,7 @@ export const useTaskStore = create<TaskStore>((set) => ({
         {
             id: "1",
             title: "Помыть посуду",
+            description: "some descr",
             completed: false,
             priority: 2,
             date: "2026-03-20", // просрочено
@@ -20,22 +21,18 @@ export const useTaskStore = create<TaskStore>((set) => ({
         {
             id: "2",
             title: "Получасовая прогулка",
+            description: "some descr",
             completed: false,
             priority: 3,
             date: "2026-03-25",
         },
     ],
 
-    addTask: (title) =>
+    addTask: (task) =>
         set((state) => ({
             tasks: [
                 ...state.tasks,
-                {
-                    id: Date.now().toString(),
-                    title,
-                    completed: false,
-                    priority: 4
-                }
+                task
             ]
         })),
     toggleTask: (id) => 

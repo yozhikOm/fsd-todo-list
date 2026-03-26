@@ -1,19 +1,15 @@
-import { useTaskStore } from "@/entities/task/model/store";
-import styles from "./AddButton.module.css";
+import styles from './AddButton.module.css';
 
-export const AddButton = () => {
-  const addTask = useTaskStore((s) => s.addTask);
+type Props = {
+  onClick: Function;
+};
 
-  const handleClick = () => {
-    const title = prompt("Название задачи");
-    if (title) addTask(title);
-  };
-
+export const AddButton = ({ onClick }: Props) => {
   return (
-    <button 
-      type="button" 
+    <button
+      type='button'
       className={styles.addButton}
-      onClick={handleClick}
+      onClick={() => onClick()}
     >
       <span className={styles.addIcon}>+</span>
       Добавить задачу
