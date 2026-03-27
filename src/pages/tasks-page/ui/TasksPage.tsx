@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { AddTaskForm } from '@/features/add-task/ui/AddTaskForm';
-import { AddButton } from '@/features/add-task/ui/AddButton';
+import { AddTaskForm } from '@/features/add-task/ui/AddTaskForm/AddTaskForm';
+import { AddButton } from '@/features/add-task/ui/AddButton/AddButton';
 import { TaskList } from '@/widgets/task-list/ui/TaskList';
 
 export const TasksPage = () => {
