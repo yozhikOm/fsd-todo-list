@@ -1,0 +1,19 @@
+:root {
+  --flag-padding: 5px; 
+}
+.flag1 {
+  color: red;
+  padding-right: var(--flag-padding);
+}
+.flag2 {
+  color: orange;
+  padding-right: var(--flag-padding);
+}
+.flag3 {
+  color: blue;
+  padding-right: var(--flag-padding);
+}
+.flag4 {
+  color: gray;
+  padding-right: var(--flag-padding);
+}

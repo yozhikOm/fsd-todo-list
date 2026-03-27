@@ -43,6 +43,10 @@
   background: #eee;
 }
 
+.priorityWrapper {
+  position: relative;
+}
+
 /* footer */
 .footer {
   display: flex;

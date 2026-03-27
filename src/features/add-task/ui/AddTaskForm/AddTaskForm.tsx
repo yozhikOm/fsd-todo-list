@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useTaskStore } from '@/entities/task/model/store';
-import styles from './AddTaskForm.module.css';
 import type { Task } from '@/entities/task/model/types';
 import { getDayType } from '@/shared/utils/getDayType';
+import { PrioritySelect } from '../PrioritySelect/PrioritySelect';
+import styles from './AddTaskForm.module.css';
+import priorityStyles from '@/shared/ui/priority/priority.module.css';
 
 type Props = {
   onClose: Function;
@@ -17,7 +19,7 @@ export const AddTaskForm = ({ onClose }: Props) => {
     priority: 4,
     date: new Date().toISOString().split('T')[0],
   });
-  const [priorityMenuOpen, setPriorityMenuOpen] = useState(false);
+  const [priorityOpen, setPriorityOpen] = useState(false);
   const addTask = useTaskStore((s) => s.addTask);
 
   const handleChange = (
@@ -82,7 +84,27 @@ export const AddTaskForm = ({ onClose }: Props) => {
         <button className={styles.secondary}>
           {newTask ? getDayType(newTask.date!) : 'Сегодня'}
         </button>
-        <button className={styles.secondary}>Приоритет</button>
+        <div className={styles.priorityWrapper}>
+          <button
+            className={styles.secondary}
+            onClick={() => setPriorityOpen((prev) => !prev)}
+          >
+            <span className={priorityStyles[`flag${newTask?.priority || 4}`]}>
+              ⚑
+            </span>
+            Приоритет
+          </button>
+
+          {priorityOpen && (
+            <PrioritySelect
+              value={newTask?.priority || 4}
+              onChange={(p) =>
+                setNewTask((prev) => (prev ? { ...prev, priority: p } : prev))
+              }
+              onClose={() => setPriorityOpen(false)}
+            />
+          )}
+        </div>
       </div>
 
       <div className={styles.footer}>
