@@ -11,7 +11,7 @@ export const TasksPage = () => {
       <h1>Входящие</h1>
       <TaskList />
       {openForm ? (
-        <AddTaskForm />
+        <AddTaskForm onClose={() => setOpenForm(false)}/>
       ) : (
         <AddButton onClick={() => setOpenForm(true)} />
       )}

@@ -1,11 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTaskStore } from '@/entities/task/model/store';
 import styles from './AddTaskForm.module.css';
 import type { Task } from '@/entities/task/model/types';
+import { getDayType } from '@/shared/utils/getDayType';
 
-export const AddTaskForm = () => {
-  const [newTask, setNewTask] = useState<Task | null>(null);
+type Props = {
+  onClose: Function;
+};
 
+export const AddTaskForm = ({ onClose }: Props) => {
+  const [newTask, setNewTask] = useState<Task | null>({
+    id: Date.now().toString(),
+    title: '',
+    description: '',
+    completed: false,
+    priority: 4,
+    date: new Date().toISOString().split('T')[0],
+  });
   const addTask = useTaskStore((s) => s.addTask);
 
   const handleChange = (
@@ -31,19 +42,30 @@ export const AddTaskForm = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!newTask?.title.trim()) return;
-
-    addTask(newTask);
+    // TODO add calendar input
+    const today = new Date().toISOString().split('T')[0];
+    addTask({
+      ...newTask,
+      date: today,
+    });
     setNewTask(null);
+    onClose();
+  };
+
+  const handleCancel = () => {
+    setNewTask(null);
+    onClose();
   };
 
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
       <input
         name='title'
-        placeholder='Новая задача...'
+        className={styles.titleInput}
+        placeholder='Название задачи'
         value={newTask?.title}
         onChange={handleChange}
       />
@@ -54,7 +76,26 @@ export const AddTaskForm = () => {
         value={newTask?.description}
         onChange={handleChange}
       />
-      <button type='submit'>Добавить</button>
+
+      <div className={styles.actions}>
+        <button className={styles.secondary}>
+          {newTask ? getDayType(newTask.date!) : 'Сегодня'}
+        </button>
+        <button className={styles.secondary}>Приоритет</button>
+      </div>
+
+      <div className={styles.footer}>
+        <span className={styles.project}>Входящие</span>
+
+        <div>
+          <button className={styles.cancel} onClick={handleCancel}>
+            Отмена
+          </button>
+          <button type='submit' className={styles.submit}>
+            Добавить
+          </button>
+        </div>
+      </div>
     </form>
   );
 };

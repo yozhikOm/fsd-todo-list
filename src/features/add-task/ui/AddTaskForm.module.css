@@ -1,0 +1,77 @@
+.container {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 12px;
+  margin-top: 12px;
+  background: white;
+}
+
+.titleInput {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.descriptionInput {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+/* actions row */
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.secondary {
+  border: 1px solid #ddd;
+  background: #f7f7f7;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.secondary:hover {
+  background: #eee;
+}
+
+/* footer */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.project {
+  font-size: 13px;
+  color: #666;
+}
+
+/* buttons */
+.cancel {
+  background: transparent;
+  border: none;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.submit {
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.submit:hover {
+  background: var(--accent-hover);
+}
