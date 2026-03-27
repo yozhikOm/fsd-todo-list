@@ -17,6 +17,7 @@ export const AddTaskForm = ({ onClose }: Props) => {
     priority: 4,
     date: new Date().toISOString().split('T')[0],
   });
+  const [priorityMenuOpen, setPriorityMenuOpen] = useState(false);
   const addTask = useTaskStore((s) => s.addTask);
 
   const handleChange = (
