@@ -26,13 +26,27 @@
 .menu {
     display: flex;
     align-items: start;
+    position: relative;
 }
 
 .menuButton {
     border: none;
     background: transparent;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 16px;
     color: #999;
     line-height: 1;
 }
+
+/* .menu {
+  position: relative;
+}
+
+.menuButton {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  opacity: 0;
+  transition: opacity 0.2s;
+} */
