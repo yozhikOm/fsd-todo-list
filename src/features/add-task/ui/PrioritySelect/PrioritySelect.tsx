@@ -1,6 +1,8 @@
 import type { PriorityType } from '@/entities/task/model/types';
 import styles from './PrioritySelect.module.css';
 import priorityStyles from '@/shared/ui/priority/priority.module.css';
+import { useRef } from 'react';
+import { useClickOutside } from '@/shared/lib/useClickOutside';
 
 type Props = {
   value: PriorityType;
@@ -17,8 +19,12 @@ const PRIORITY_TEXTS: string[] = [
 ];
 
 export const PrioritySelect = ({ value, onChange, onClose }: Props) => {
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useClickOutside(ref, onClose);
+
   return (
-    <div className={styles.dropdown}>
+    <div ref={ref} className={styles.dropdown}>
       {PRIORITY_VALUES.map((p) => (
         <div
           key={p}
