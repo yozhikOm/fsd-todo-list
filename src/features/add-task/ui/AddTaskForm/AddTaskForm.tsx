@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTaskStore } from '@/entities/task/model/store';
 import type { Task } from '@/entities/task/model/types';
 import { getDayType } from '@/shared/utils/getDayType';
@@ -19,7 +19,7 @@ export const AddTaskForm = ({ onClose }: Props) => {
     priority: 4,
     date: new Date().toISOString().split('T')[0],
   });
-  const [priorityOpen, setPriorityOpen] = useState(false);
+  const [isPriorityOpen, setIsPriorityOpen] = useState(false);
   const addTask = useTaskStore((s) => s.addTask);
 
   const handleChange = (
@@ -87,7 +87,7 @@ export const AddTaskForm = ({ onClose }: Props) => {
         <div className={styles.priorityWrapper}>
           <button
             className={styles.secondary}
-            onClick={() => setPriorityOpen((prev) => !prev)}
+            onClick={() => setIsPriorityOpen((prev) => !prev)}
           >
             <span className={priorityStyles[`flag${newTask?.priority || 4}`]}>
               ⚑
@@ -95,13 +95,13 @@ export const AddTaskForm = ({ onClose }: Props) => {
             Приоритет
           </button>
 
-          {priorityOpen && (
+          {isPriorityOpen && (
             <PrioritySelect
               value={newTask?.priority || 4}
               onChange={(p) =>
                 setNewTask((prev) => (prev ? { ...prev, priority: p } : prev))
               }
-              onClose={() => setPriorityOpen(false)}
+              onClose={() => setIsPriorityOpen(false)}
             />
           )}
         </div>
