@@ -1,7 +1,8 @@
-import { EditIcon, DeleteIcon } from '@/shared/ui/icons';
-import styles from './TaskActionsMenu.module.css';
-import { useClickOutside } from '@/shared/lib/useClickOutside';
 import { useRef } from 'react';
+import { EditIcon, DeleteIcon } from '@/shared/ui/icons';
+import { useClickOutside } from '@/shared/lib/useClickOutside';
+
+import styles from './TaskActionsMenu.module.css';
 
 type Props = {
   onEdit: () => void;
