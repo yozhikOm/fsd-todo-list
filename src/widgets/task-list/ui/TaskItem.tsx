@@ -1,22 +1,21 @@
-import type { Task } from '@/entities/task';
-import { useTaskStore } from '@/entities/task/model/store';
 import { useState } from 'react';
-import { TaskActionsMenu } from '@/entities/task/ui/TaskActionsMenu/TaskActionsMenu';
+import { TaskActionsMenu, useTaskStore, type Task } from '@/entities/task';
 import { Dialog } from '@/shared/ui/dialog/Dialog';
 import { EditTask } from '@/features/edit-task';
 
 import styles from './TaskItem.module.css';
 
-
 type Props = {
   task: Task;
+  isEditing: boolean;
+  onEdit: () => void;
+  onCloseEdit: () => void;
 };
 
-export const TaskItem = ({ task }: Props) => {
+export const TaskItem = ({ task, isEditing, onEdit, onCloseEdit }: Props) => {
   const { toggleTask, deleteTask } = useTaskStore();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState<boolean>(false);
-  const [isEditFormOpen, setIsEditFormOpen] = useState<boolean>(false);
 
   return (
     <>
@@ -56,7 +55,7 @@ export const TaskItem = ({ task }: Props) => {
             <TaskActionsMenu
               onEdit={() => {
                 setIsMenuOpen(false);
-                setIsEditFormOpen(true);
+                onEdit();
               }}
               onDelete={() => {
                 setIsMenuOpen(false);
@@ -67,8 +66,8 @@ export const TaskItem = ({ task }: Props) => {
           )}
         </div>
       </div>
-      {isEditFormOpen && (
-        <EditTask task={task} onClose={() => setIsEditFormOpen(false)} />
+      {isEditing && (
+        <EditTask task={task} onClose={() => onCloseEdit()} />
       )}
       {isConfirmDialogOpen && (
         <Dialog

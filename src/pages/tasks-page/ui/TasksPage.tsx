@@ -1,19 +1,30 @@
 import { useState } from 'react';
-import { AddButton } from '@/features/add-task/ui/AddButton/AddButton';
+import { AddButton, AddTask } from '@/features/add-task';
 import { TaskList } from '@/widgets/task-list/ui/TaskList';
-import { AddTask } from '@/features/add-task/ui/AddTask';
 
 export const TasksPage = () => {
-  const [openForm, setOpenForm] = useState<boolean>(false);
+  const [isAddOpen, setIsAddOpen] = useState(false);
+  const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
 
   return (
     <div style={{ maxWidth: 800, margin: '0 auto', padding: 16 }}>
       <h1>Входящие</h1>
-      <TaskList />
-      {openForm ? (
-        <AddTask onClose={() => setOpenForm(false)} />
+      <TaskList
+        editingTaskId={editingTaskId}
+        setEditingTaskId={(id) => {
+          setIsAddOpen(false); // закрыли add
+          setEditingTaskId(id);
+        }}
+      />
+      {isAddOpen ? (
+        <AddTask onClose={() => setIsAddOpen(false)} />
       ) : (
-        <AddButton onClick={() => setOpenForm(true)} />
+        <AddButton
+          onClick={() => {
+            setEditingTaskId(null); // закрыли edit
+            setIsAddOpen(true);
+          }}
+        />
       )}
     </div>
   );
