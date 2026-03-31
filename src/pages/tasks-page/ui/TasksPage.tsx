@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { AddTaskForm } from '@/features/add-task/ui/AddTaskForm/AddTaskForm';
 import { AddButton } from '@/features/add-task/ui/AddButton/AddButton';
 import { TaskList } from '@/widgets/task-list/ui/TaskList';
+import { AddTask } from '@/features/add-task/ui/AddTask';
 
 export const TasksPage = () => {
   const [openForm, setOpenForm] = useState<boolean>(false);
@@ -11,7 +11,7 @@ export const TasksPage = () => {
       <h1>Входящие</h1>
       <TaskList />
       {openForm ? (
-        <AddTaskForm onClose={() => setOpenForm(false)}/>
+        <AddTask onClose={() => setOpenForm(false)} />
       ) : (
         <AddButton onClick={() => setOpenForm(true)} />
       )}

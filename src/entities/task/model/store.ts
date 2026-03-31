@@ -4,6 +4,7 @@ import type { Task } from './types';
 type TaskStore = {
     tasks: Task[];
     addTask: (task: Task) => void;
+    updateTask: (task: Task) => void;
     toggleTask: (id: string) => void;
     deleteTask: (id: string) => void;
 }
@@ -34,6 +35,11 @@ export const useTaskStore = create<TaskStore>((set) => ({
                 ...state.tasks,
                 task
             ]
+        })),
+    updateTask: (task) => 
+        set((state) => ({
+            tasks: state.tasks.map((t) =>
+                t.id === task.id ? task : t) 
         })),
     toggleTask: (id) => 
         set((state) => ({

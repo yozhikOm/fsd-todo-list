@@ -1,8 +1,8 @@
-import type { Task } from '@/entities/task/model/types';
+import type { Task } from '@/entities/task';
 import { useTaskStore } from '@/entities/task/model/store';
 import styles from './TaskItem.module.css';
 import { useState } from 'react';
-import { TaskActionsMenu } from '@/entities/task/ui/TaskActionsMenu';
+import { TaskActionsMenu } from '@/entities/task/ui/TaskActionsMenu/TaskActionsMenu';
 import { Dialog } from '@/shared/ui/dialog/Dialog';
 
 type Props = {
