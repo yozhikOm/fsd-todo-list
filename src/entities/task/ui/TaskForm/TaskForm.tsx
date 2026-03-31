@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { type Task } from '@/entities/task';
 import { getDayType } from '@/shared/utils/getDayType';
 import { PrioritySelect } from '../PrioritySelect/PrioritySelect';
@@ -26,9 +26,15 @@ export const TaskForm = ({ task, onClose, onSubmit, submitLabel }: Props) => {
   );
   const [isPriorityOpen, setIsPriorityOpen] = useState(false);
 
+  const titleRef = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
     if (task) setCurrentTask(task);
   }, [task]);
+
+  useEffect(() => {
+    titleRef.current?.focus();
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -52,6 +58,7 @@ export const TaskForm = ({ task, onClose, onSubmit, submitLabel }: Props) => {
   return (
     <form className={styles.container} onSubmit={handleSubmit} role='form'>
       <input
+        ref={titleRef}
         name='title'
         className={styles.titleInput}
         placeholder='Название задачи'
