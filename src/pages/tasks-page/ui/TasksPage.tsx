@@ -7,7 +7,7 @@ export const TasksPage = () => {
   const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
 
   return (
-    <div style={{ maxWidth: 800, margin: '0 auto', padding: 16 }}>
+    <div style={{ maxWidth: 800, width: 400, margin: '0 auto', padding: 16 }}>
       <h1>Входящие</h1>
       <TaskList
         editingTaskId={editingTaskId}

@@ -14,7 +14,14 @@
 }
 
 .itemTitle {
+    font-size: 16px;
     margin-left: 10px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.completed {
+  text-decoration: line-through;
 }
 
 .itemDate {

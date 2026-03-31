@@ -26,7 +26,8 @@ export const TaskForm = ({ task, onClose, onSubmit, submitLabel }: Props) => {
   );
   const [isPriorityOpen, setIsPriorityOpen] = useState(false);
 
-  const titleRef = useRef<HTMLInputElement>(null);
+  const titleRef = useRef<HTMLTextAreaElement>(null);
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     if (task) setCurrentTask(task);
@@ -34,6 +35,14 @@ export const TaskForm = ({ task, onClose, onSubmit, submitLabel }: Props) => {
 
   useEffect(() => {
     titleRef.current?.focus();
+    if (titleRef.current) {
+      titleRef.current.style.height = 'auto';
+      titleRef.current.style.height = titleRef.current.scrollHeight + 'px';
+    }
+    if (descriptionRef.current) {
+      descriptionRef.current.style.height = 'auto';
+      descriptionRef.current.style.height = descriptionRef.current.scrollHeight + 'px';
+    }
   }, []);
 
   const handleChange = (
@@ -41,6 +50,12 @@ export const TaskForm = ({ task, onClose, onSubmit, submitLabel }: Props) => {
   ) => {
     const { name, value } = e.target;
     setCurrentTask((prev) => ({ ...prev, [name]: value }));
+
+    // если элемент — textarea, авто-рост
+    if (e.target instanceof HTMLTextAreaElement) {
+      e.target.style.height = 'auto'; // сброс
+      e.target.style.height = e.target.scrollHeight + 'px'; // выставляем по контенту
+    }
   };
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
@@ -57,7 +72,7 @@ export const TaskForm = ({ task, onClose, onSubmit, submitLabel }: Props) => {
 
   return (
     <form className={styles.container} onSubmit={handleSubmit} role='form'>
-      <input
+      <textarea
         ref={titleRef}
         name='title'
         className={styles.titleInput}
@@ -65,7 +80,8 @@ export const TaskForm = ({ task, onClose, onSubmit, submitLabel }: Props) => {
         value={currentTask.title}
         onChange={handleChange}
       />
-      <input
+      <textarea
+        ref={descriptionRef}
         name='description'
         className={styles.descriptionInput}
         placeholder='Описание'

@@ -30,16 +30,12 @@ export const TaskItem = ({ task, isEditing, onEdit, onCloseEdit }: Props) => {
           />
         </div>
         <div className={styles.itemContent}>
-          <div className={styles.itemTitle}>
-            <div
-              style={{
-                /* TODO вынести в стили */
-                textDecoration: task.completed ? 'line-through' : 'none',
-                fontSize: 16,
-              }}
-            >
-              {task.title}
-            </div>
+          <div
+            className={`${styles.itemTitle} ${
+              task.completed ? styles.completed : ''
+            }`}
+          >
+            {task.title}
           </div>
           <div className={styles.itemDate}>
             {task.date && getDayType(task.date)}
@@ -67,9 +63,7 @@ export const TaskItem = ({ task, isEditing, onEdit, onCloseEdit }: Props) => {
           )}
         </div>
       </div>
-      {isEditing && (
-        <EditTask task={task} onClose={() => onCloseEdit()} />
-      )}
+      {isEditing && <EditTask task={task} onClose={() => onCloseEdit()} />}
       {isConfirmDialogOpen && (
         <Dialog
           open={isConfirmDialogOpen}
