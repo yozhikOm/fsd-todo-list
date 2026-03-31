@@ -1,8 +1,9 @@
-import type { PriorityType } from '@/entities/task/model/types';
-import styles from './PrioritySelect.module.css';
-import priorityStyles from '@/shared/ui/priority/priority.module.css';
 import { useRef } from 'react';
 import { useClickOutside } from '@/shared/lib/useClickOutside';
+import type { PriorityType } from '@/entities/task';
+
+import styles from './PrioritySelect.module.css';
+import priorityStyles from '@/shared/ui/priority/priority.module.css';
 
 type Props = {
   value: PriorityType;
