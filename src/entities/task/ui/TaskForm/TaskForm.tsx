@@ -30,6 +30,8 @@ export const TaskForm = ({ task, onClose, onSubmit, submitLabel }: Props) => {
 
   const titleRef = useRef<HTMLTextAreaElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
+  const pickDateBtnRef = useRef<HTMLButtonElement>(null);
+  const priorityBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (task) setCurrentTask(task);
@@ -93,59 +95,55 @@ export const TaskForm = ({ task, onClose, onSubmit, submitLabel }: Props) => {
       />
 
       <div className={styles.actions}>
-        <div className={styles.datePickerWrapper}>
-          <button
-            type='button'
-            className={styles.secondary}
-            onClick={() => setIsDatePickerOpen(true)}
-          >
-            {getDayType(currentTask.date!)}
-          </button>
+        <button
+          ref={pickDateBtnRef}
+          type='button'
+          className={styles.secondary}
+          onClick={() => setIsDatePickerOpen(true)}
+        >
+          {getDayType(currentTask.date!)}
+        </button>
+        {isDatePickerOpen && (
+          <DatePicker
+            selectedDate={currentTask?.date ? new Date(currentTask.date) : null}
+            onChange={(date: Date | null) => {
+              setCurrentTask((prev) => ({
+                ...prev,
+                date: date?.toISOString(),
+              }));
+            }}
+            onClose={() => {
+              setIsDatePickerOpen(false);
+              titleRef.current?.focus();
+            }}
+            anchor={pickDateBtnRef.current}
+          />
+        )}
 
-          {isDatePickerOpen && (
-            <DatePicker
-              selectedDate={
-                currentTask?.date ? new Date(currentTask.date) : null
-              }
-              onChange={(date: Date | null) => {
-                setCurrentTask((prev) => ({
-                  ...prev,
-                  date: date?.toISOString(),
-                }));
-              }}
-              onClose={() => {
-                setIsDatePickerOpen(false);
-                titleRef.current?.focus();
-              }}
-            />
-          )}
-        </div>
-
-        <div className={styles.priorityWrapper}>
-          <button
-            type='button'
-            className={styles.secondary}
-            onClick={() => setIsPriorityOpen((prev) => !prev)}
-          >
-            <span className={priorityStyles[`flag${currentTask.priority}`]}>
-              ⚑
-            </span>
-            Приоритет
-          </button>
-
-          {isPriorityOpen && (
-            <PrioritySelect
-              value={currentTask.priority}
-              onChange={(p) =>
-                setCurrentTask((prev) => ({ ...prev, priority: p }))
-              }
-              onClose={() => {
-                setIsPriorityOpen(false);
-                titleRef.current?.focus();
-              }}
-            />
-          )}
-        </div>
+        <button
+          ref={priorityBtnRef}
+          type='button'
+          className={styles.secondary}
+          onClick={() => setIsPriorityOpen((prev) => !prev)}
+        >
+          <span className={priorityStyles[`flag${currentTask.priority}`]}>
+            ⚑
+          </span>
+          Приоритет
+        </button>
+        {isPriorityOpen && (
+          <PrioritySelect
+            value={currentTask.priority}
+            onChange={(p) =>
+              setCurrentTask((prev) => ({ ...prev, priority: p }))
+            }
+            onClose={() => {
+              setIsPriorityOpen(false);
+              titleRef.current?.focus();
+            }}
+            anchor={priorityBtnRef.current}
+          />
+        )}
       </div>
 
       <div className={styles.footer}>

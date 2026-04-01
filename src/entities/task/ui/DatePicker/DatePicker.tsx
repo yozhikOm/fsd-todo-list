@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { format, isSameDay, isSameMonth, addMonths, subMonths } from 'date-fns';
 import {
   getDaysOfMonth,
@@ -9,6 +10,7 @@ import {
   formatMonthYear,
 } from '../../lib/taskDateUtils';
 import { useClickOutside } from '@/shared/lib/useClickOutside';
+import { usePopoverPosition } from '@/shared/lib/usePopoverPosition';
 
 import styles from './DatePicker.module.css';
 
@@ -16,17 +18,20 @@ type DatePickerProps = {
   selectedDate: Date | null;
   onChange: (date: Date | null) => void;
   onClose: () => void; // для закрытия при выборе даты
+  anchor: HTMLElement | null;
 };
 
 export const DatePicker: React.FC<DatePickerProps> = ({
   selectedDate,
   onChange,
   onClose,
+  anchor
 }) => {
   const [currentMonth, setCurrentMonth] = useState(() => selectedDate || new Date());
-  const ref = useRef<HTMLDivElement | null>(null);
-  useClickOutside(ref, onClose);
-
+  const pickerRef = useRef<HTMLDivElement>(null);
+  const { position, isVisible } = usePopoverPosition(anchor, pickerRef);
+  useClickOutside(pickerRef, onClose);
+  
   const days = getDaysOfMonth(currentMonth);
   const weekDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 
@@ -46,8 +51,17 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   const isSelected = (day: Date) => selectedDate && isSameDay(day, selectedDate);
   const isCurrentMonth = (day: Date) => isSameMonth(day, currentMonth);
 
-  return (
-    <div ref={ref} className={styles.calendar}>
+  return createPortal (
+    <div
+      ref={pickerRef}
+      className={styles.calendar}
+      style={{
+        top: position.top,
+        left: position.left,
+        opacity: isVisible ? 1 : 0,
+        pointerEvents: isVisible ? 'auto' : 'none',
+      }}
+    >
       <div className={styles.quickOptions}>
         <button onClick={() => handleQuickSelect(getToday())}>Сегодня</button>
         <button onClick={() => handleQuickSelect(getTomorrow())}>Завтра</button>
@@ -95,6 +109,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
           );
         })}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };

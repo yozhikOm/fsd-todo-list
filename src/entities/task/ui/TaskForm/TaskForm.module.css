@@ -47,10 +47,6 @@ textarea {
   background: #eee;
 }
 
-.datePickerWrapper, .priorityWrapper {
-  position: relative;
-}
-
 /* footer */
 .footer {
   display: flex;
