@@ -8,7 +8,7 @@ import {
   getNextMonday,
   getNextSaturday,
   formatMonthYear,
-} from '../../lib/taskDateUtils';
+} from '@/shared/lib/dateUtils';
 import { useClickOutside } from '@/shared/lib/useClickOutside';
 import { usePopoverPosition } from '@/shared/lib/usePopoverPosition';
 

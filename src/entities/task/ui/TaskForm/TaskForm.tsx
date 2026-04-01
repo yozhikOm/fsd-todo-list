@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { type Task } from '@/entities/task';
-import { getDayType } from '@/shared/utils/getDayType';
+import { getDateLabel } from '@/shared/lib/dateUtils';
 import { PrioritySelect } from '../PrioritySelect/PrioritySelect';
 import { DatePicker } from '../DatePicker/DatePicker';
 
@@ -101,7 +101,7 @@ export const TaskForm = ({ task, onClose, onSubmit, submitLabel }: Props) => {
           className={styles.secondary}
           onClick={() => setIsDatePickerOpen(true)}
         >
-          {getDayType(currentTask.date!)}
+          {currentTask.date ? getDateLabel(currentTask.date) : 'Дата'}
         </button>
         {isDatePickerOpen && (
           <DatePicker

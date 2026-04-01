@@ -7,6 +7,7 @@ import {
   eachDayOfInterval,
   format,
   getDay,
+  isSameDay,
 } from 'date-fns';
 import { ru } from 'date-fns/locale';
 
@@ -34,3 +35,16 @@ export const getNextSaturday = () => {
 
 export const formatMonthYear = (date: Date) =>
   format(date, 'LLLL yyyy', { locale: ru });
+
+export const getDateLabel = (dateString: string) => {
+  const inputDate = new Date(dateString);
+  const today = new Date();
+
+  if (isSameDay(inputDate, today)) {
+    return 'Сегодня';
+  }
+  if (isSameDay(inputDate, addDays(today, 1))) {
+    return 'Завтра';
+  }
+  return format(inputDate, 'd MMM', { locale: ru });
+};

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { TaskActionsMenu, useTaskStore, type Task } from '@/entities/task';
 import { Dialog } from '@/shared/ui/dialog/Dialog';
 import { EditTask } from '@/features/edit-task';
-import { getDayType } from '@/shared/utils/getDayType';
+import { getDateLabel } from '@/shared/lib/dateUtils';
 import { DotMenuMoreIcon } from '@/shared/ui/icons';
 
 import styles from './TaskItem.module.css';
@@ -38,7 +38,7 @@ export const TaskItem = ({ task, isEditing, onEdit, onCloseEdit }: Props) => {
             {task.title}
           </div>
           <div className={styles.itemDate}>
-            {task.date && getDayType(task.date)}
+            {task.date && getDateLabel(task.date)}
           </div>
         </div>
         <div className={styles.menu}>
