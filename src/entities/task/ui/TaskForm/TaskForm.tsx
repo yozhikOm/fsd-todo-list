@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { type Task } from '@/entities/task';
 import { getDayType } from '@/shared/utils/getDayType';
 import { PrioritySelect } from '../PrioritySelect/PrioritySelect';
+import { DatePicker } from '../DatePicker/DatePicker';
 
 import styles from './TaskForm.module.css';
 import priorityStyles from '@/shared/ui/priority/priority.module.css';
@@ -24,6 +25,7 @@ export const TaskForm = ({ task, onClose, onSubmit, submitLabel }: Props) => {
       date: new Date().toISOString().split('T')[0],
     }
   );
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [isPriorityOpen, setIsPriorityOpen] = useState(false);
 
   const titleRef = useRef<HTMLTextAreaElement>(null);
@@ -41,7 +43,8 @@ export const TaskForm = ({ task, onClose, onSubmit, submitLabel }: Props) => {
     }
     if (descriptionRef.current) {
       descriptionRef.current.style.height = 'auto';
-      descriptionRef.current.style.height = descriptionRef.current.scrollHeight + 'px';
+      descriptionRef.current.style.height =
+        descriptionRef.current.scrollHeight + 'px';
     }
   }, []);
 
@@ -90,9 +93,34 @@ export const TaskForm = ({ task, onClose, onSubmit, submitLabel }: Props) => {
       />
 
       <div className={styles.actions}>
-        <button className={styles.secondary}>
-          {getDayType(currentTask.date!)}
-        </button>
+        <div className={styles.datePickerWrapper}>
+          <button
+            type='button'
+            className={styles.secondary}
+            onClick={() => setIsDatePickerOpen(true)}
+          >
+            {getDayType(currentTask.date!)}
+          </button>
+
+          {isDatePickerOpen && (
+            <DatePicker
+              selectedDate={
+                currentTask?.date ? new Date(currentTask.date) : null
+              }
+              onChange={(date: Date | null) => {
+                setCurrentTask((prev) => ({
+                  ...prev,
+                  date: date?.toISOString(),
+                }));
+              }}
+              onClose={() => {
+                setIsDatePickerOpen(false);
+                titleRef.current?.focus();
+              }}
+            />
+          )}
+        </div>
+
         <div className={styles.priorityWrapper}>
           <button
             type='button'
@@ -111,7 +139,10 @@ export const TaskForm = ({ task, onClose, onSubmit, submitLabel }: Props) => {
               onChange={(p) =>
                 setCurrentTask((prev) => ({ ...prev, priority: p }))
               }
-              onClose={() => setIsPriorityOpen(false)}
+              onClose={() => {
+                setIsPriorityOpen(false);
+                titleRef.current?.focus();
+              }}
             />
           )}
         </div>
