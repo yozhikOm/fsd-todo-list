@@ -131,7 +131,10 @@ export const TaskForm = ({ task, onClose, onSubmit, submitLabel }: Props) => {
           onClick={() => setIsPriorityOpen((prev) => !prev)}
         >
           <span
-            className={`${priorityStyles.flag} ${priorityStyles[`flag${currentTask.priority}`]}`}
+            className={`${priorityStyles.flag} ${
+              priorityStyles[`flag${currentTask.priority}`]
+            }`}
+            data-testid='priority-flag'
           >
             <FlagIcon />
             Приоритет

@@ -5,7 +5,7 @@ import type { Task } from '@/entities/task';
 // 🔧 мок PrioritySelect (чтобы не тащить его логику)
 vi.mock('../PrioritySelect/PrioritySelect', () => ({
   PrioritySelect: ({ onChange }: any) => (
-    <div data-testid="priority-select">
+    <div data-testid='priority-select'>
       <button onClick={() => onChange(1)}>set-priority-1</button>
     </div>
   ),
@@ -107,7 +107,7 @@ describe('TaskForm', () => {
     fireEvent.click(screen.getByText('set-priority-1'));
 
     // Проверяем косвенно — по классу флага
-    const flag = screen.getByText('⚑');
+    const flag = screen.getByTestId('priority-flag');
     expect(flag.className).toContain('flag1');
   });
 });
