@@ -13,3 +13,16 @@ export type Task = {
 export type GetTasksResponse = {
   tasks: Task[];
 };
+
+export type AddTaskResponse = {
+  addTask: Task;
+};
+
+export type AddTaskVariables = {
+  title: string;
+  description?: string;
+  priority: PriorityType;
+  date?: string;
+  //duration?: number;
+};
+
