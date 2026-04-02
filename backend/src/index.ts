@@ -7,7 +7,7 @@ type Task = {
   description?: string;
   completed: boolean;
   priority: number;
-  date: string;
+  date?: string;
 };
 
 let tasks: Task[] = [
@@ -36,7 +36,7 @@ const typeDefs = `#graphql
     description: String
     completed: Boolean!
     priority: Int!
-    date: String!
+    date: String
   }
 
   type Query {
@@ -44,7 +44,7 @@ const typeDefs = `#graphql
   }
 
   type Mutation {
-    addTask(title: String!, description: String, priority: Int!, date: String!): Task!
+    addTask(title: String!, description: String, priority: Int!, date: String): Task!
     toggleTask(id: ID!): Task!
     deleteTask(id: ID!): Boolean!
   }
