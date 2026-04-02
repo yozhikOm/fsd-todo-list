@@ -3,6 +3,7 @@ import { type Task } from '@/entities/task';
 import { getDateLabel } from '@/shared/lib/dateUtils';
 import { PrioritySelect } from '../PrioritySelect/PrioritySelect';
 import { DatePicker } from '../DatePicker/DatePicker';
+import { CalendarIcon, FlagIcon } from '@/shared/ui/icons';
 
 import styles from './TaskForm.module.css';
 import priorityStyles from '@/shared/ui/priority/priority.module.css';
@@ -101,7 +102,10 @@ export const TaskForm = ({ task, onClose, onSubmit, submitLabel }: Props) => {
           className={styles.secondary}
           onClick={() => setIsDatePickerOpen(true)}
         >
-          {currentTask.date ? getDateLabel(currentTask.date) : 'Дата'}
+          <span className={styles.datePicker}>
+            <CalendarIcon />
+            {currentTask.date ? getDateLabel(currentTask.date) : 'Дата'}
+          </span>
         </button>
         {isDatePickerOpen && (
           <DatePicker
@@ -126,10 +130,12 @@ export const TaskForm = ({ task, onClose, onSubmit, submitLabel }: Props) => {
           className={styles.secondary}
           onClick={() => setIsPriorityOpen((prev) => !prev)}
         >
-          <span className={priorityStyles[`flag${currentTask.priority}`]}>
-            ⚑
+          <span
+            className={`${priorityStyles.flag} ${priorityStyles[`flag${currentTask.priority}`]}`}
+          >
+            <FlagIcon />
+            Приоритет
           </span>
-          Приоритет
         </button>
         {isPriorityOpen && (
           <PrioritySelect

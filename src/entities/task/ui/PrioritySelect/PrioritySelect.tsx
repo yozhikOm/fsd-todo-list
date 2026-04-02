@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { usePopoverPosition } from '@/shared/lib/usePopoverPosition';
 import { useClickOutside } from '@/shared/lib/useClickOutside';
 import type { PriorityType } from '@/entities/task';
+import { FlagIcon } from '@/shared/ui/icons';
 
 import styles from './PrioritySelect.module.css';
 import priorityStyles from '@/shared/ui/priority/priority.module.css';
@@ -47,10 +48,13 @@ export const PrioritySelect = ({ value, onChange, onClose, anchor }: Props) => {
             onClose();
           }}
         >
-          <span className={priorityStyles[`flag${p}`]}>⚑</span>
-          {/* Приоритет {p} */}
-          {PRIORITY_TEXTS[p - 1]}
-          {value === p && ' ✓'}
+          <span
+            className={`${priorityStyles.flag} ${priorityStyles[`flag${p}`]}`}>
+              <FlagIcon />
+              {/* Приоритет {p} */}
+              {PRIORITY_TEXTS[p - 1]}
+              {value === p && ' ✓'}
+          </span>
         </div>
       ))}
     </div>,

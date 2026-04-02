@@ -1,19 +1,18 @@
-:root {
-  --flag-padding: 5px; 
+.flag {
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
-.flag1 {
+
+.flag1 svg {
   color: red;
-  padding-right: var(--flag-padding);
 }
-.flag2 {
+.flag2 svg {
   color: orange;
-  padding-right: var(--flag-padding);
 }
-.flag3 {
+.flag3 svg {
   color: blue;
-  padding-right: var(--flag-padding);
 }
-.flag4 {
+.flag4 svg {
   color: gray;
-  padding-right: var(--flag-padding);
 }
