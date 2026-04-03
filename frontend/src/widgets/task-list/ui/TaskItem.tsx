@@ -5,6 +5,7 @@ import { EditTask } from '@/features/edit-task';
 import { getDateLabel } from '@/shared/lib/dateUtils';
 import { DotMenuMoreIcon } from '@/shared/ui/icons';
 import { useToggleTask } from '@/entities/task/api/useToggleTask';
+import { useDeleteTask } from '@/entities/task/api/useDeleteTask';
 
 import styles from './TaskItem.module.css';
 
@@ -16,10 +17,15 @@ type Props = {
 };
 
 export const TaskItem = ({ task, isEditing, onEdit, onCloseEdit }: Props) => {
-  //const { toggleTask, deleteTask } = useTaskStore();
   const [toggleTask] = useToggleTask();
+  const [deleteTask] = useDeleteTask();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState<boolean>(false);
+
+  const handleDelete = () => {
+    deleteTask({ variables: { id: task.id } });
+    setIsConfirmDialogOpen(false);
+  };
 
   return (
     <>
@@ -74,10 +80,7 @@ export const TaskItem = ({ task, isEditing, onEdit, onCloseEdit }: Props) => {
           confirmText='Удалить'
           cancelText='Отмена'
           onCancel={() => setIsConfirmDialogOpen(false)}
-          onConfirm={() => {
-            //deleteTask(task.id);
-            setIsConfirmDialogOpen(false);
-          }}
+          onConfirm={handleDelete}
         />
       )}
     </>

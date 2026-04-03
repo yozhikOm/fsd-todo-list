@@ -48,3 +48,12 @@ export type ToggleTaskResponse = {
 export type ToggleTaskVariables = {
   id: string;
 };
+
+
+export type DeleteTaskResponse = {
+  deleteTask: boolean;
+};
+
+export type DeleteTaskVariables = {
+  id: string;
+};
