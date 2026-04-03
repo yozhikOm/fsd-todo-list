@@ -47,3 +47,12 @@ export const EDIT_TASK = gql`
     }
   }
 `;
+
+export const TOGGLE_TASK = gql`
+  mutation ToggleTask($id: ID!) {
+    toggleTask(id: $id) {
+      id
+      completed
+    }
+  }
+`;

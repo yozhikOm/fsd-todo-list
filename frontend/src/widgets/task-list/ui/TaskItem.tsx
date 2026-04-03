@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { TaskActionsMenu, useTaskStore, type Task } from '@/entities/task';
+import { TaskActionsMenu, type Task } from '@/entities/task';
 import { Dialog } from '@/shared/ui/dialog/Dialog';
 import { EditTask } from '@/features/edit-task';
 import { getDateLabel } from '@/shared/lib/dateUtils';
 import { DotMenuMoreIcon } from '@/shared/ui/icons';
+import { useToggleTask } from '@/entities/task/api/useToggleTask';
 
 import styles from './TaskItem.module.css';
 
@@ -15,7 +16,8 @@ type Props = {
 };
 
 export const TaskItem = ({ task, isEditing, onEdit, onCloseEdit }: Props) => {
-  const { toggleTask, deleteTask } = useTaskStore();
+  //const { toggleTask, deleteTask } = useTaskStore();
+  const [toggleTask] = useToggleTask();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState<boolean>(false);
 
@@ -26,7 +28,7 @@ export const TaskItem = ({ task, isEditing, onEdit, onCloseEdit }: Props) => {
           <input
             type='checkbox'
             checked={task.completed}
-            onChange={() => toggleTask(task.id)}
+            onChange={() => toggleTask({ variables: { id: task.id } })}
           />
         </div>
         <div className={styles.itemContent}>
@@ -73,7 +75,7 @@ export const TaskItem = ({ task, isEditing, onEdit, onCloseEdit }: Props) => {
           cancelText='Отмена'
           onCancel={() => setIsConfirmDialogOpen(false)}
           onConfirm={() => {
-            deleteTask(task.id);
+            //deleteTask(task.id);
             setIsConfirmDialogOpen(false);
           }}
         />

@@ -37,3 +37,14 @@ export type EditTaskVariables = {
   priority: number;
   date?: string;
 };
+
+export type ToggleTaskResponse = {
+  toggleTask: {
+    id: string;
+    completed: boolean;
+  };
+};
+
+export type ToggleTaskVariables = {
+  id: string;
+};
