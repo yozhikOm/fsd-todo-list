@@ -26,3 +26,14 @@ export type AddTaskVariables = {
   //duration?: number;
 };
 
+export type EditTaskResponse = {
+  editTask: Task;
+};
+
+export type EditTaskVariables = {
+  id: string;
+  title: string;
+  description?: string;
+  priority: number;
+  date?: string;
+};

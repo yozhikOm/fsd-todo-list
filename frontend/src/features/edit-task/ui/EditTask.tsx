@@ -1,4 +1,5 @@
-import { TaskForm, useTaskStore, type Task } from '@/entities/task';
+import { TaskForm, type Task } from '@/entities/task';
+import { useEditTask } from '@/entities/task/api/useEditTask';
 
 export const EditTask = ({
   task,
@@ -7,12 +8,26 @@ export const EditTask = ({
   task: Task;
   onClose: () => void;
 }) => {
-  const updateTask = useTaskStore((s) => s.updateTask);
+  const [editTask] = useEditTask();
   
+  const handleSubmit = (task: Task) => {
+    editTask({
+      variables: {
+        id: task.id,
+        title: task.title,
+        description: task.description,
+        priority: task.priority,
+        date: task.date,
+      }
+    }).then(() => {
+      onClose();
+    });
+  };
+
   return (
     <TaskForm 
       task={task}
-      onSubmit={(task) => updateTask(task)}
+      onSubmit={handleSubmit}
       onClose={onClose}
       submitLabel='Сохранить'
     />
