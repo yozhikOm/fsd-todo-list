@@ -56,14 +56,14 @@ export const resolvers = {
     },
     toggleTask: async (_: any, { id }: { id: string }) => {
       try {
-        const task = TaskModel.findByIdAndUpdate(
-          id,
-          [{ $set: { completed: { $not: '$completed' } } }],
-          { new: true }
-        );
+        const task = await TaskModel.findById(id);
+
         if (!task) {
           throw new Error('Task not found');
         }
+
+        task.completed = !task.completed;
+        await task.save();
 
         return task;
       } catch (error) {
