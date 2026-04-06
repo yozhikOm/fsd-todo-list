@@ -37,7 +37,7 @@ export const formatMonthYear = (date: Date) =>
   format(date, 'LLLL yyyy', { locale: ru });
 
 export const getDateLabel = (dateString: string) => {
-  const inputDate = new Date(dateString);
+  const inputDate = new Date(parseInt(dateString));
   const today = new Date();
 
   if (isSameDay(inputDate, today)) {

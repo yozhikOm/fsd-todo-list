@@ -109,7 +109,7 @@ export const TaskForm = ({ task, onClose, onSubmit, submitLabel }: Props) => {
         </button>
         {isDatePickerOpen && (
           <DatePicker
-            selectedDate={currentTask?.date ? new Date(currentTask.date) : null}
+            selectedDate={currentTask?.date ? new Date(parseInt(currentTask.date)) : null}
             onChange={(date: Date | null) => {
               setCurrentTask((prev) => ({
                 ...prev,
