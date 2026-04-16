@@ -18,12 +18,15 @@ export default defineConfig({
     }
   },
   build: {
+    outDir: 'dist',
     rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, 'src/app/index.tsx')
-      }
+      // input: {
+      //   main: path.resolve(__dirname, 'src/app/index.tsx')
+      // }
+      input: path.resolve(__dirname, 'index.html')
     }
   },
+  base: './', // чтобы пути к assets работали правильно
   test: {  
     environment: "jsdom",  // Эмулируем браузерное окружение 
     globals: true,  // Чтобы не импортировать describe, it, expect в каждом тесте
