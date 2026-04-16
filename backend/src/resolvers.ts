@@ -1,12 +1,19 @@
-import { TaskModel } from './models/Task';
+import { mapTaskToDTO, TaskModel } from './models/Task';
 
 export const resolvers = {
   Query: {
-    tasks: async () => await TaskModel.find(),
-    task: async (_: any, { id }: { id: string }) =>
-      await TaskModel.findById(id),
-    tasksByCompleted: async (_: any, { completed }: { completed: boolean }) =>
-      await TaskModel.find({ completed }),
+    tasks: async () => {
+      const tasks = await TaskModel.find();
+      return tasks.map(mapTaskToDTO);
+    },
+    task: async (_: any, { id }: { id: string }) => {
+      const task = await TaskModel.findById(id);
+      return task ? mapTaskToDTO(task) : null;
+    },
+    tasksByCompleted: async (_: any, { completed }: { completed: boolean }) => {
+      const tasks = await TaskModel.find({ completed });
+      return tasks.map(mapTaskToDTO);
+    },
     tasksToday: async () => {
       // Получаем начало и конец текущего дня
       const today = new Date();
@@ -24,7 +31,7 @@ export const resolvers = {
         },
       });
 
-      return tasks;
+      return tasks.map(mapTaskToDTO);
     },
   },
 
@@ -32,8 +39,9 @@ export const resolvers = {
     addTask: async (_: any, args: any) => {
       try {
         const newTask = new TaskModel({
-          completed: false,
           ...args,
+          completed: false,
+          date: args.date ? new Date(args.date) : undefined
         });
         await newTask.save();
         return newTask;
